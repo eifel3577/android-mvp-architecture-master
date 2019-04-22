@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 
 
 /**
- * Created by janisharali on 27/01/17.
+ * точка входа в приложение
  */
 
 public class SplashActivity extends BaseActivity implements SplashMvpView {
