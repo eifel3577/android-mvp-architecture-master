@@ -23,7 +23,7 @@ import com.mindorks.framework.mvp.data.prefs.PreferencesHelper;
 import io.reactivex.Observable;
 
 /**
- * Created by janisharali on 27/01/17.
+ * управление доступом к данным из разных источников
  */
 
 public interface DataManager extends DbHelper, PreferencesHelper, ApiHelper {

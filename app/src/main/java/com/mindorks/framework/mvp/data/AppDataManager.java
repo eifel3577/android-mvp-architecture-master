@@ -50,7 +50,7 @@ import io.reactivex.Single;
 import io.reactivex.functions.Function;
 
 /**
- * Created by janisharali on 27/01/17.
+ * предоставляется как зависимость singleton
  */
 
 @Singleton
@@ -63,6 +63,13 @@ public class AppDataManager implements DataManager {
     private final PreferencesHelper mPreferencesHelper;
     private final ApiHelper mApiHelper;
 
+    /**
+     * предоставляется как зависимость в даггер
+     * @param context
+     * @param dbHelper
+     * @param preferencesHelper
+     * @param apiHelper
+     */
     @Inject
     public AppDataManager(@ApplicationContext Context context,
                           DbHelper dbHelper,

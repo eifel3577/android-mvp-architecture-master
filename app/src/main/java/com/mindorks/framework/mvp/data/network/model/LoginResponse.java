@@ -19,7 +19,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by janisharali on 08/01/17.
+ * ответ
  */
 
 public class LoginResponse {

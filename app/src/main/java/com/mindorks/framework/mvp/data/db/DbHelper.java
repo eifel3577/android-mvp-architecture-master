@@ -25,14 +25,24 @@ import io.reactivex.Observable;
 
 
 /**
- * Created by janisharali on 08/12/16.
+ * интерфейс для работы с БД
  */
 
 public interface DbHelper {
 
+    /**
+     * добавление пользователя
+     * @param user пользователь
+     * @return
+     */
     Observable<Long> insertUser(final User user);
 
+    /**
+     *
+     * @return возвращает всех пользователь
+     */
     Observable<List<User>> getAllUsers();
+
 
     Observable<List<Question>> getAllQuestions();
 

@@ -20,7 +20,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 /**
- * Created by janisharali on 27/01/17.
+ * класс для проверки есть ли соединение с интернетом
  */
 
 public final class NetworkUtils {
@@ -29,6 +29,11 @@ public final class NetworkUtils {
         // This utility class is not publicly instantiable
     }
 
+    /**
+     * проверка соединения с интернетом
+     * @param context
+     * @return true если соединение с интернетом есть
+     */
     public static boolean isNetworkConnected(Context context) {
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

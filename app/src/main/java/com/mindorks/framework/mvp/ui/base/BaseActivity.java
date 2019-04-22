@@ -44,11 +44,12 @@ import butterknife.Unbinder;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
- * Created by janisharali on 27/01/17.
+ * базовое активити,которое наследуется всеми активити
  */
 
 public abstract class BaseActivity extends AppCompatActivity
         implements MvpView, BaseFragment.Callback {
+
 
     private ProgressDialog mProgressDialog;
 
@@ -56,6 +57,10 @@ public abstract class BaseActivity extends AppCompatActivity
 
     private Unbinder mUnBinder;
 
+    /**
+     * создает компонент для работы наследников с даггером
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,15 +71,28 @@ public abstract class BaseActivity extends AppCompatActivity
 
     }
 
+    /**
+     *
+     * @return компонент для работы с даггером
+     */
     public ActivityComponent getActivityComponent() {
         return mActivityComponent;
     }
+
 
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
+
+    /** Получение разрешений для версий API выше M
+     * Чтобы Lint не ругался на методы которые не поддерживаются в API указанной в minSdkVersion
+     * можно пометить их аннотацией @TargetApi() (в скобках указать версию API в которой этот метод
+     * поддерживается)
+     * @param permissions разрешения
+     * @param requestCode
+     */
     @TargetApi(Build.VERSION_CODES.M)
     public void requestPermissionsSafely(String[] permissions, int requestCode) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -82,18 +100,29 @@ public abstract class BaseActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Проверка получено ли разрешение
+     * @param permission разрешение,для которого надо получить согласие
+     * @return true если разрешение получено
+     */
     @TargetApi(Build.VERSION_CODES.M)
     public boolean hasPermission(String permission) {
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
                 checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
     }
 
+    /**
+     * показывать progressDialog
+     */
     @Override
     public void showLoading() {
         hideLoading();
         mProgressDialog = CommonUtils.showLoadingDialog(this);
     }
 
+    /**
+     * скрыть progressDialog
+     */
     @Override
     public void hideLoading() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
@@ -101,6 +130,10 @@ public abstract class BaseActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * показывать ShackBar c переданным сообщением
+     * @param message сообщение которое надо отобразить в SnackBar
+     */
     private void showSnackBar(String message) {
         Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content),
                 message, Snackbar.LENGTH_SHORT);
@@ -111,6 +144,10 @@ public abstract class BaseActivity extends AppCompatActivity
         snackbar.show();
     }
 
+    /**
+     * показать SnackBar с сообщением об ошибке
+     * @param message сообщение об ошибке
+     */
     @Override
     public void onError(String message) {
         if (message != null) {
@@ -120,11 +157,17 @@ public abstract class BaseActivity extends AppCompatActivity
         }
     }
 
+
+
     @Override
     public void onError(@StringRes int resId) {
         onError(getString(resId));
     }
 
+    /**
+     * показывать Toast с текстом сообщения
+     * @param message текст сообщения
+     */
     @Override
     public void showMessage(String message) {
         if (message != null) {
@@ -134,11 +177,16 @@ public abstract class BaseActivity extends AppCompatActivity
         }
     }
 
+
     @Override
     public void showMessage(@StringRes int resId) {
         showMessage(getString(resId));
     }
 
+    /**
+     * проверка есть соединение с интернетом
+     * @returntrue если соединение есть
+     */
     @Override
     public boolean isNetworkConnected() {
         return NetworkUtils.isNetworkConnected(getApplicationContext());
@@ -154,6 +202,10 @@ public abstract class BaseActivity extends AppCompatActivity
 
     }
 
+
+    /**
+     * скрывает клавиатуру
+     */
     public void hideKeyboard() {
         View view = this.getCurrentFocus();
         if (view != null) {
@@ -162,6 +214,7 @@ public abstract class BaseActivity extends AppCompatActivity
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
+
 
     @Override
     public void openActivityOnTokenExpire() {
@@ -173,6 +226,9 @@ public abstract class BaseActivity extends AppCompatActivity
         mUnBinder = unBinder;
     }
 
+    /**
+     * обнуляет биндер Butterknife
+     */
     @Override
     protected void onDestroy() {
 

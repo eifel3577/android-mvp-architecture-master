@@ -31,6 +31,12 @@ public interface ApiHelper {
 
     ApiHeader getApiHeader();
 
+    /**
+     * Single - этот источник предоставит вам либо один элемент в onNext, либо ошибку в onError,
+     * после чего передача данных будет считаться завершенной. onComplete вы от него не дождетесь.
+     * @param request запрос
+     * @return ответ
+     */
     Single<LoginResponse> doGoogleLoginApiCall(LoginRequest.GoogleLoginRequest request);
 
     Single<LoginResponse> doFacebookLoginApiCall(LoginRequest.FacebookLoginRequest request);

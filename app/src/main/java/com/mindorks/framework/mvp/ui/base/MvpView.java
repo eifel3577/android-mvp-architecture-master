@@ -25,15 +25,28 @@ import android.support.annotation.StringRes;
  * Base interface that any class that wants to act as a View in the MVP (Model View Presenter)
  * pattern must implement. Generally this interface will be extended by a more specific interface
  * that then usually will be implemented by an Activity or Fragment.
+ *
+ * базовый интерфейс который наследуют все классы,которые являются View в архитектуре MVP.В основном этот
+ * интерфейс переопределяется более детальными интерфейсами для каждого View
  */
 public interface MvpView {
 
+    /**
+     * показывать загрузку
+     */
     void showLoading();
 
+    /**
+     * скрывать загрузку
+     */
     void hideLoading();
 
     void openActivityOnTokenExpire();
 
+    /**
+     * выводит текст ошибки
+     * @param resId
+     */
     void onError(@StringRes int resId);
 
     void onError(String message);

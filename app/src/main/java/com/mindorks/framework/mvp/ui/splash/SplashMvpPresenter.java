@@ -20,7 +20,8 @@ import com.mindorks.framework.mvp.di.PerActivity;
 import com.mindorks.framework.mvp.ui.base.MvpPresenter;
 
 /**
- * Created by janisharali on 27/01/17.
+ * презентер для работы с splashActivity
+ * скоуп время жизни активити
  */
 
 @PerActivity

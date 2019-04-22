@@ -28,12 +28,18 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
 /**
- * Created by janisharali on 27/01/17.
+ * презентер который обслуживает SplashActivity
  */
 
 public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V>
         implements SplashMvpPresenter<V> {
 
+    /**
+     * презентер будет передаваться как зависимость
+     * @param dataManager
+     * @param schedulerProvider
+     * @param compositeDisposable
+     */
     @Inject
     public SplashPresenter(DataManager dataManager,
                            SchedulerProvider schedulerProvider,
@@ -41,6 +47,10 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V>
         super(dataManager, schedulerProvider, compositeDisposable);
     }
 
+    /**
+     * присоединение View к презентеру
+     * @param mvpView View которую присоединить к презентеру
+     */
     @Override
     public void onAttach(V mvpView) {
         super.onAttach(mvpView);

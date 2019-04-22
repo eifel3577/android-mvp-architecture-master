@@ -24,12 +24,23 @@ import com.androidnetworking.error.ANError;
 /**
  * Every presenter in the app must either implement this interface or extend BasePresenter
  * indicating the MvpView type that wants to be attached with.
+ *
+ * каждый презентер должен либо имплементить этот интерфейс либо наследоваться от BasePresenter
+ *
  */
 public interface MvpPresenter<V extends MvpView> {
 
+    /**
+     * присоединить View к презентеру
+     * @param mvpView View которую присоединить к презентеру
+     */
     void onAttach(V mvpView);
 
+    /**
+     * отсоединить View от презентера
+     */
     void onDetach();
+
 
     void handleApiError(ANError error);
 

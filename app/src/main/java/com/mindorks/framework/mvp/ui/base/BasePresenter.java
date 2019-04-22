@@ -41,6 +41,10 @@ import io.reactivex.disposables.CompositeDisposable;
  * Base class that implements the Presenter interface and provides a base implementation for
  * onAttach() and onDetach(). It also handles keeping a reference to the mvpView that
  * can be accessed from the children classes by calling getMvpView().
+ *
+ * Базовый класс, который реализует интерфейс Presenter и предоставляет базовую реализацию для
+ *  * onAttach () и onDetach (). Он также обрабатывает сохранение ссылки на mvpView, который
+ *  * можно получить доступ из дочерних классов, вызвав getMvpView ().
  */
 public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
 
@@ -52,6 +56,13 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
 
     private V mMvpView;
 
+    /**
+     * будет предоставляться как зависимость
+     * @param dataManager
+     * @param schedulerProvider
+     * @param compositeDisposable  это объект, который хранит все подписки и может отменить их
+     *                             всех сразу. Это может быть полезно, например, при закрытии Activity
+     */
     @Inject
     public BasePresenter(DataManager dataManager,
                          SchedulerProvider schedulerProvider,
@@ -61,21 +72,36 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
         this.mCompositeDisposable = compositeDisposable;
     }
 
+    /**
+     * присоединить View к презентеру
+     * @param mvpView View которую присоединить к презентеру
+     */
     @Override
     public void onAttach(V mvpView) {
         mMvpView = mvpView;
     }
 
+    /**
+     * отсоединят View от презентера и отменяет подписки
+     */
     @Override
     public void onDetach() {
         mCompositeDisposable.dispose();
         mMvpView = null;
     }
 
+    /**
+     * подключено ли View к презентеру
+     * @return true если подключено
+     */
     public boolean isViewAttached() {
         return mMvpView != null;
     }
 
+    /**
+     *
+     * @return View к которому презентер подключен
+     */
     public V getMvpView() {
         return mMvpView;
     }
@@ -83,6 +109,7 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
     public void checkViewAttached() {
         if (!isViewAttached()) throw new MvpViewNotAttachedException();
     }
+
 
     public DataManager getDataManager() {
         return mDataManager;
@@ -92,10 +119,18 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
         return mSchedulerProvider;
     }
 
+    /**
+     *
+     * @return хранилище подписок
+     */
     public CompositeDisposable getCompositeDisposable() {
         return mCompositeDisposable;
     }
 
+    /**
+     * обработка ошибок при получении данных
+     * @param error
+     */
     @Override
     public void handleApiError(ANError error) {
 
@@ -142,6 +177,7 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
             getMvpView().onError(R.string.api_default_error);
         }
     }
+
 
     @Override
     public void setUserAsLoggedOut() {

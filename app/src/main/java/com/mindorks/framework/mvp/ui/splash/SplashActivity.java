@@ -35,14 +35,24 @@ import butterknife.ButterKnife;
 
 public class SplashActivity extends BaseActivity implements SplashMvpView {
 
+    /**
+     * получает свой презентер через даггер
+     */
     @Inject
     SplashMvpPresenter<SplashMvpView> mPresenter;
+
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, SplashActivity.class);
         return intent;
     }
 
+    /**
+     * получает все зависимости из даггера для этой активити
+     * привязывается к биндеру Butterknife
+     * активити передает экземпляр себя в презентер для привязки
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +67,7 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
 
     /**
      * Making the screen wait so that the  branding can be shown
+     * открывает loginActivity
      */
     @Override
     public void openLoginActivity() {
@@ -65,6 +76,9 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
         finish();
     }
 
+    /**
+     * открывает MainActivity
+     */
     @Override
     public void openMainActivity() {
         Intent intent = MainActivity.getStartIntent(SplashActivity.this);
@@ -76,6 +90,7 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
     public void startSyncService() {
 //        SyncService.start(this);
     }
+
 
     @Override
     protected void onDestroy() {

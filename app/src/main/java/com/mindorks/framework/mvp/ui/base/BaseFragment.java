@@ -29,7 +29,7 @@ import com.mindorks.framework.mvp.utils.CommonUtils;
 import butterknife.Unbinder;
 
 /**
- * Created by janisharali on 27/01/17.
+ * базовый класс для всех фрагментов
  */
 
 public abstract class BaseFragment extends Fragment implements MvpView {
